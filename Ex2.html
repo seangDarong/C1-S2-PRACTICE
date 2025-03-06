@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Ex1.css">
+</head>
+<body>
+    <div class="container">
+        <div class="input-container">
+        <label for="task-input">Task:</label>
+        <input type="text" id="task-input">
+        <label for="priority-input">Tag:</label>
+        <select name="" id="priority-input">
+            <option value="0">LOW</option>
+            <option value="1">HIGH</option>
+        </select>
+        <button>Add Task</button>
+        <button id="show-important">Show only important task</button>
+        <button id="show-not-important">Show the tasks that are not important</button>
+        <button id="show-all">Show all the tasks</button>
+        </div>
+    <!-- Exercise 1 -->
+    <div id="task-container"></div>
+    <script>
+        let tasks = [
+            {description:"Task 1",priority:1},
+            {description:"Task 2",priority:0},
+            {description:"Task 3",priority:1}
+        ];
+
+        function displayTask(tasks){
+            let container = document.getElementById("task-container");
+            let taskHTML = "<div class ='taskwrapper'>";
+            tasks.forEach(task =>{
+                let colorbox = task.priority === 1? "red" : "grey";
+                taskHTML+=
+                `<div class ="task-box ${colorbox}">
+                    <h3>${task.description}</h3>
+                </div>`
+
+            });
+            taskHTML+= "</div>";
+            container.innerHTML = taskHTML;
+        }
+        document.addEventListener("DOMContentLoaded",function (){
+                displayTask(tasks)
+            })
+
+            //Exercise 2
+            document.querySelector("button").addEventListener("click",function(){
+                //get input value
+                let newTaskDescription = document.getElementById("task-input").value;
+                let newTaskTag = document.getElementById("priority-input").value;
+
+
+                tasks.push({
+                    description : newTaskDescription,
+                    priority : parseInt(newTaskTag)
+                });
+
+                displayTask(tasks);
+            })
+    </script>
+
+</div>
+</body>
+</html>
